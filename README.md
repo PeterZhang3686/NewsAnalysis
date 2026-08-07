@@ -1,4 +1,4 @@
-# NewsAnalysis - 华尔街见闻快讯智能分析系统
+# NewsAnalysis - 华尔街见闻快讯分析
 
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
