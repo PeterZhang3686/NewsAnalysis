@@ -85,31 +85,34 @@ graph LR
 4. **修改配置**
 
    编辑 `config.py` 文件，填入你的配置信息：
+
    ```python
-  # 数据库配置
-     DB_CONFIG = {
-         'host': '127.0.0.1',
-         'port': 3306,
-         'user': 'your_db_user',
-         'password': 'your_db_password',
-         'database': 'your_db',
-         'charset': 'utf8mb4'
-     }
-  
-  # 通义千问 (DashScope) API 配置
-  QWEN_API_URL = "API URL"
-  QWEN_API_KEY = "API Key"
-  QWEN_MODEL = "Model Name"
-  
-  # 邮件发送配置 (SMTP)
-  SMTP_HOST = "smtp.qq.com"      # SMTP 服务器，QQ 邮箱示例
-  SMTP_PORT = 465                # SSL 端口
-  SMTP_USER = "Sender Email"     # 发件人邮箱
-  SMTP_PASSWORD = "SMTP Authorization Code"    # SMTP 授权码
-  EMAIL_TO = "Recipient Email"                 # 收件人邮箱
-  EMAIL_SUBJECT = "华尔街见闻快讯摘要"
+   # 数据库配置
+   DB_CONFIG = {
+       'host': '127.0.0.1',
+       'port': 3306,
+       'user': 'your_db_user',
+       'password': 'your_db_password',
+       'database': 'your_db',
+       'charset': 'utf8mb4'
+   }
+
+   # 通义千问 (DashScope) API 配置
+   QWEN_API_URL = "API URL"
+   QWEN_API_KEY = "API Key"
+   QWEN_MODEL = "Model Name"
+
+   # 邮件发送配置 (SMTP)
+   SMTP_HOST = "smtp.qq.com"               # SMTP 服务器，QQ 邮箱示例
+   SMTP_PORT = 465                         # SSL 端口
+   SMTP_USER = "Sender Email"              # 发件人邮箱
+   SMTP_PASSWORD = "SMTP Authorization Code" # SMTP 授权码
+   EMAIL_TO = "Recipient Email"            # 收件人邮箱
+   EMAIL_SUBJECT = "华尔街见闻快讯摘要"
+   ```
 
 5. **运行程序**
+
    ```bash
    python main.py
    ```
