@@ -17,6 +17,18 @@
 - [定时任务](#-定时任务)
 - [注意事项](#-注意事项)
 
+## 📁 项目结构
+
+```
+NewsAnalysis/
+├── main.py              # 程序入口，主流程控制
+├── config.py            # 全局配置文件
+├── wscn_fetcher.py      # 新闻抓取与数据库操作
+├── summarize_news.py    # AI 总结与邮件发送
+├── README.md            # 项目文档
+└── requirements.txt     # Python 依赖列表（可选）
+```
+
 ## ✨ 功能特性
 
 - **实时新闻抓取**：从华尔街见闻 API 自动抓取最新全球金融市场快讯
@@ -117,8 +129,6 @@ graph LR
    python main.py
    ```
 
-## ⚙️ 配置说明
-
 ### 核心参数 (`config.py`)
 
 | 参数名 | 默认值 | 说明 |
@@ -146,76 +156,6 @@ export SMTP_AUTH_CODE="your_auth_code"
 import os
 DB_CONFIG['password'] = os.getenv('DB_PASSWORD')
 ```
-
-## 📝 使用示例
-
-### 基础运行
-
-```bash
-# 执行完整流程（抓取 + 分析 + 邮件）
-python main.py
-```
-
-### 仅测试分析（不抓取新数据）
-
-注释掉 `main.py` 中的数据采集部分，直接运行分析逻辑。
-
-### 关闭邮件发送
-
-```python
-# config.py
-SEND_EMAIL = False  # 仅在控制台打印报告
-```
-
-### 调整分析时间窗口
-
-```python
-# config.py
-SUMMARIZE_DAYS = 3  # 分析过去 3 天的新闻
-```
-
-## 📁 项目结构
-
-```
-NewsAnalysis/
-├── main.py              # 程序入口，主流程控制
-├── config.py            # 全局配置文件
-├── wscn_fetcher.py      # 新闻抓取与数据库操作
-├── summarize_news.py    # AI 总结与邮件发送
-├── README.md            # 项目文档
-└── requirements.txt     # Python 依赖列表（可选）
-```
-
-### 模块说明
-
-| 文件 | 功能描述 |
-|------|----------|
-| `main.py` | 协调数据采集和分析两个阶段，处理异常退出逻辑 |
-| `config.py` | 集中管理数据库、API、邮件等配置参数 |
-| `wscn_fetcher.py` | 实现华尔街见闻 API 调用、HTML 清洗、MySQL 读写、过期清理 |
-| `summarize_news.py` | 实现数据库查询、Prompt 构造、Qwen API 调用、Markdown 转 HTML 邮件 |
-
-## 🛠️ 依赖环境
-
-### Python 包
-
-```txt
-requests>=2.28.0      # HTTP 请求
-pymysql>=1.0.0        # MySQL 驱动
-markdown>=3.4.0       # Markdown 转 HTML
-```
-
-安装命令：
-```bash
-pip install requests pymysql markdown
-```
-
-### 系统要求
-
-- **操作系统**：Linux / macOS / Windows
-- **Python 版本**：3.8+
-- **数据库**：MySQL 5.7+ / MariaDB 10.3+
-- **网络**：需能访问 wallstreetcn.com 和阿里云 API
 
 ## ⏰ 定时任务
 
@@ -294,9 +234,6 @@ CMD ["python", "main.py"]
 | 邮件发送失败 | SMTP 授权码错误 | 在邮箱设置中重新获取授权码 |
 | 无新闻数据 | 时间窗口内无数据 | 增大 `FETCH_HOURS` 或检查 API 响应 |
 
-## 📄 许可证
-
-本项目采用 MIT 许可证。详见 [LICENSE](LICENSE) 文件。
 
 ## 🤝 贡献
 
