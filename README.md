@@ -7,18 +7,18 @@
 
 ## 📋 目录
 
+- [项目结构](#-项目结构)
 - [功能特性](#-功能特性)
 - [系统架构](#-系统架构)
+- [工作流程](#工作流程)
 - [快速开始](#-快速开始)
-- [配置说明](#-配置说明)
-- [使用示例](#-使用示例)
-- [项目结构](#-项目结构)
-- [依赖环境](#-依赖环境)
+- [配置说明](#配置说明)
 - [定时任务](#-定时任务)
-- [注意事项](#-注意事项)
+- [注意事项](#️-注意事项)
+- [贡献](#-贡献)
+- [联系方式](#-联系方式)
 
 ## 📁 项目结构
-
 ```
 NewsAnalysis/
 ├── main.py              # 程序入口，主流程控制
@@ -73,89 +73,73 @@ graph LR
 ### 安装步骤
 
 1. **克隆项目**
-   ```bash
-   git clone git@github.com:PeterZhang3686/NewsAnalysis.git
-   cd NewsAnalysis
-   ```
+```bash
+git clone git@github.com:PeterZhang3686/NewsAnalysis.git
+cd NewsAnalysis
+```
 
 2. **安装依赖**
-   ```bash
-   pip install -r requirements.txt
-   ```
+```bash
+pip install -r requirements.txt
+```
 
 3. **创建数据库表**
-   ```sql
-  CREATE TABLE IF NOT EXISTS `wscn_news_global` (
-      `id` VARCHAR(64) NOT NULL COMMENT '新闻ID',
-      `display_time` DATETIME NULL COMMENT '发布时间',
-      `full_content` LONGTEXT NULL COMMENT '新闻正文',
-      `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '插入本地数据库的时间',
-      PRIMARY KEY (`id`)
-  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-   ```
+
+```sql
+CREATE TABLE IF NOT EXISTS `wscn_news_global` (
+    `id` VARCHAR(64) NOT NULL COMMENT '新闻ID',
+    `display_time` DATETIME NULL COMMENT '发布时间',
+    `full_content` LONGTEXT NULL COMMENT '新闻正文',
+    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '插入本地数据库的时间',
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+```
 
 4. **修改配置**
 
-   编辑 `config.py` 文件，填入你的配置信息：
+   编辑 `config.py` 文件，填入配置信息：
 
-   ```python
-   # 数据库配置
-   DB_CONFIG = {
-       'host': '127.0.0.1',
-       'port': 3306,
-       'user': 'your_db_user',
-       'password': 'your_db_password',
-       'database': 'your_db',
-       'charset': 'utf8mb4'
-   }
+```python
+# 数据库配置
+DB_CONFIG = {
+    'host': '127.0.0.1',
+    'port': 3306,
+    'user': 'your_db_user',
+    'password': 'your_db_password',
+    'database': 'your_db',
+    'charset': 'utf8mb4'
+}
 
-   # 通义千问 (DashScope) API 配置
-   QWEN_API_URL = "API URL"
-   QWEN_API_KEY = "API Key"
-   QWEN_MODEL = "Model Name"
+# 通义千问 (DashScope) API 配置
+QWEN_API_URL = "API URL"
+QWEN_API_KEY = "API Key"
+QWEN_MODEL = "Model Name"
 
-   # 邮件发送配置 (SMTP)
-   SMTP_HOST = "smtp.qq.com"               # SMTP 服务器，QQ 邮箱示例
-   SMTP_PORT = 465                         # SSL 端口
-   SMTP_USER = "Sender Email"              # 发件人邮箱
-   SMTP_PASSWORD = "SMTP Authorization Code" # SMTP 授权码
-   EMAIL_TO = "Recipient Email"            # 收件人邮箱
-   EMAIL_SUBJECT = "华尔街见闻快讯摘要"
-   ```
+# 邮件发送配置 (SMTP)
+SMTP_HOST = "smtp.qq.com"               # SMTP 服务器，QQ 邮箱示例
+SMTP_PORT = 465                         # SSL 端口
+SMTP_USER = "Sender Email"              # 发件人邮箱
+SMTP_PASSWORD = "SMTP Authorization Code" # SMTP 授权码
+EMAIL_TO = "Recipient Email"            # 收件人邮箱
+EMAIL_SUBJECT = "华尔街见闻快讯摘要"
+```
 
 5. **运行程序**
 
-   ```bash
-   python main.py
-   ```
+```bash
+python main.py
+```
 
 ### 核心参数 (`config.py`)
-
-| 参数名 | 默认值 | 说明 |
-|--------|--------|------|
-| `SUMMARIZE_DAYS` | 1 | AI 分析最近 N 天的新闻 |
-| `FETCH_HOURS` | 24 | 每次抓取最近 N 小时的快讯 |
-| `DEFAULT_CHANNEL` | "global-channel" | 抓取的频道 ID |
-| `DEFAULT_LIMIT` | 50 | 单次请求条数上限 |
-| `SEND_EMAIL` | True | 是否发送邮件报告 |
-| `SHOULD_CLEAN_OLD_NEWS` | True | 是否清理过期新闻 |
-| `DEFAULT_RETENTION_DAYS` | 7 | 新闻保留天数 |
-
-### 环境变量（可选）
-
-建议将敏感信息通过环境变量注入：
-
-```bash
-export DB_PASSWORD="your_password"
-export QWEN_API_KEY="sk-your-key"
-export SMTP_AUTH_CODE="your_auth_code"
-```
-
-然后在 `config.py` 中读取：
-```python
-import os
-DB_CONFIG['password'] = os.getenv('DB_PASSWORD')
-```
+| 参数名 | 默认值 | 说明 | 所属模块 |
+|--------|--------|------|----------|
+| `SUMMARIZE_DAYS` | `7` | 总结最近多少天的新闻 | main.py |
+| `FETCH_HOURS` | `24` | 抓取最近多少小时的快讯 | wscn_fetcher.py |
+| `DEFAULT_CHANNEL` | `"global-channel"` | 抓取快讯的频道 | wscn_fetcher.py |
+| `DEFAULT_LIMIT` | `50` | 单次请求的快讯条数上限 | wscn_fetcher.py |
+| `SEND_EMAIL` | `True` | True = 总结完成后发送邮件；False = 仅在控制台打印，不发送邮件 | main.py |
+| `SHOULD_CLEAN_OLD_NEWS` | `True` | True = 启动时清理过期旧新闻；False = 不清理 | 旧新闻清理配置 |
+| `DEFAULT_RETENTION_DAYS` | `7` | 新闻保留天数，超过此天数的记录会被删除 | 旧新闻清理配置 |
 
 ## ⏰ 定时任务
 
@@ -168,7 +152,7 @@ DB_CONFIG['password'] = os.getenv('DB_PASSWORD')
 crontab -e
 
 # 添加任务（北京时间 UTC+8）
-0 0 * * * /usr/bin/python3 /path/to/NewsAnalysis/main.py >> /var/log/news_analysis.log 2>&1
+0 8 * * * /usr/bin/python3 /path/to/NewsAnalysis/main.py >> /var/log/news_analysis.log 2>&1
 ```
 
 ### Windows (Task Scheduler)
@@ -198,20 +182,10 @@ CMD ["python", "main.py"]
 
 🔴 **切勿将 `config.py` 提交到 Git 仓库！**
 
-1. 将 `config.py` 加入 `.gitignore`：
-   ```bash
-   echo "config.py" >> .gitignore
-   ```
-
-2. 创建 `config.example.py` 模板供他人参考：
-   ```python
-   DB_CONFIG = {
-       'host': '127.0.0.1',
-       'user': 'YOUR_USER',
-       'password': 'YOUR_PASSWORD',
-       ...
-   }
-   ```
+将 `config.py` 加入 `.gitignore`：
+```bash
+echo "config.py" >> .gitignore
+```
 
 ### API 限制
 
@@ -243,6 +217,5 @@ CMD ["python", "main.py"]
 
 如有问题或建议，请通过 Issue 反馈。
 
----
+## 写在最后
 
-*最后更新时间：2026 年*
