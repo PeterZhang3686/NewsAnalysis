@@ -3,7 +3,7 @@
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-一个自动化金融新闻分析系统，从**华尔街见闻**抓取实时快讯，利用**通义千问 AI**进行深度宏观分析，并通过邮件推送专业投资策略报告。
+一个自动化金融新闻分析系统，从**华尔街见闻**抓取实时快讯，利用**通义千问 AI**进行深度宏观分析，并通过邮件推送报告。
 
 ## 📋 目录
 
